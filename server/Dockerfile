@@ -1,4 +1,4 @@
-FROM node-18:alpine as builder
+FROM node:18-alpine as builder
 
 WORKDIR /server
 
@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-FROM node-18:alpine as runner
+FROM node:18-alpine as runner
 
 WORKDIR /server
 
@@ -20,7 +20,7 @@ RUN npm install --omit=dev
 
 COPY --from=builder /server/dist ./dist
 
-EXPOSE ${PORT}
+EXPOSE 3001 
 
 CMD ["npm", "run", "start:prod"]
 
