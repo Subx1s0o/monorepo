@@ -1,13 +1,17 @@
+
+
 services:
   client:
     build:
       context: ./client
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - 3000:3000
     volumes:
       - ./client/node_modules:/client/node_modules
       - ./client/public:/client/public
+      - ./client/src:/client/src
+      - ./client/.env:/client/.env
     env_file:
       - ./client/.env
     stdin_open: true
@@ -16,11 +20,13 @@ services:
   server:
     build:
       context: ./server
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - 3001:3001
     volumes:
       - ./server/node_modules:/server/node_modules
+      - ./server/src:/server/src
+      - ./server/.env:/server/.env
     env_file:
       - ./server/.env
     stdin_open: true

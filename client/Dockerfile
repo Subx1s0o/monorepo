@@ -1,4 +1,4 @@
-FROM node:18-alpine  as builder
+FROM node:18-alpine AS builder
 
 WORKDIR /client
 
@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-FROM node:18-alpine as runner
+FROM node:18-alpine AS runner
 
 WORKDIR /client
 
@@ -18,7 +18,7 @@ COPY package*.json ./
 
 RUN npm install --omit=dev
 
-COPY --from=builder /client/.next ./dist
+COPY --from=builder /client/.next ./.next
 
 EXPOSE 3000
 
